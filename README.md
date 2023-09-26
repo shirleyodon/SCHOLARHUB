@@ -50,28 +50,28 @@ Le backend est développé en Flask et SQLAlchemy tandis que le frontend est en 
     |__ launch.py
     |__ requirements.txt
 
-  ## Lancement du projet sans docker
+  ## Lancement du projet sans docker compose
   
-  1. Clonez le dépôt
-     git clone https://shirleyodon/SCHOLARHUB
+  1. Clonez le dépôt: <br/>
+     https://github.com/shirleyodon/SCHOLARHUB.git <br/>
      cd SCHLARHUB
      
-  2. Installez les dépendances
+  2. Installez les dépendances: <br/>
      pip install -r requirements.txt
      
-  3. Lancez l'application
+  3. Lancez l'application: <br/>
      python launch.py
 
-  ## Lancement du projet avec docker
+  ## Lancement du projet avec docker compose
 
-  1. Clonez le dépôt
-     git clone https://shirleyodon/SCHOLARHUB
+  1. Clonez le dépôt : <br/>
+     https://github.com/shirleyodon/SCHOLARHUB.git <br/>
      cd SCHLARHUB
 
-  2. Builder l'image docker
+  2. Builder l'image docker: <br/>
      docker build -t <image_name:version> .
 
-  3. Lancer l'application
+  3. Lancer l'application : <br/>
      docker compose up
   
   
