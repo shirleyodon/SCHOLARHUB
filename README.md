@@ -2,7 +2,7 @@
 
 ## Description
 
-Une plateforme de gestion en ligne des travaux académiques des étudiants
+Une plateforme de gestion en ligne des travaux académiques des étudiants. <br/>
 Le backend est développé en Flask et SQLAlchemy tandis que le frontend est en Reactjs
 
 ## Structure du projet
