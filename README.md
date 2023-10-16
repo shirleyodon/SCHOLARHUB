@@ -2,7 +2,7 @@
 
 ## Description
 
-Une plateforme de gestion en ligne des travaux académiques des étudiants
+Une plateforme de gestion en ligne des travaux académiques des étudiants. <br/>
 Le backend est développé en Flask et SQLAlchemy tandis que le frontend est en Reactjs
 
 ## Structure du projet
@@ -69,7 +69,7 @@ Le backend est développé en Flask et SQLAlchemy tandis que le frontend est en 
      cd SCHLARHUB
 
   2. Builder l'image docker: <br/>
-     docker build -t <image_name:version> .
+     docker build -t shirley/scholarhub:backend .
 
   3. Lancer l'application : <br/>
      docker compose up
