@@ -3,10 +3,10 @@ from .. import db
 class Livre(db.Model):
     __tablename__ = 'livre'
     refLivre = db.Column('RefLivre', db.Integer, primary_key=True)
-    motCle = db.Column('MotCle', db.String(100), nullable=False)
+    motCle = db.Column('MotCle', db.Text, nullable=False)
     nbPage = db.Column('NbPage', db.Integer, nullable=False)
     resume = db.Column('Resume', db.Text, nullable=False)
-    theme = db.Column('Theme', db.String(100), nullable=False)
+    theme = db.Column('Theme', db.Text, nullable=False)
     url = db.Column('Url', db.String(200), nullable=False)
     
     # Many-to-one with AnneeUniversitaire

@@ -68,10 +68,10 @@ CREATE TABLE IF NOT EXISTS "etablissementAccueil"(
 -- Create livre table
 CREATE TABLE IF NOT EXISTS "livre"(
     "RefLivre" SERIAL PRIMARY KEY,
-    "MotCle" VARCHAR(100) NOT NULL,
+    "MotCle" TEXT NOT NULL,
     "NbPage" INTEGER NOT NULL,
     "Resume" TEXT NOT NULL,
-    "Theme" VARCHAR(100) NOT NULL,
+    "Theme" TEXT NOT NULL,
     "Url" VARCHAR(200) NOT NULL,
     "NumCat" INTEGER NOT NULL,
     "MatEncad" VARCHAR(10) NOT NULL,
@@ -138,7 +138,7 @@ INSERT INTO "encadreurPedagogique" ("MatEncad", "EmailEncad", "MotPasseEncad", "
 VALUES
     ('ENC001', 'fontainerafamant@yahoo.fr', 'fontaine', 'RAFAMANTANANTSOA', 'Fontaine', 5),
     ('ENC002', 'ralaivao.christian@gmail.com', 'christian', 'RALAIVAO', 'Christian', 2),
-    ('ENC003', 'rakotoas.cyprienna@gmail.com', 'antsa', 'RAKOTOASIMBAHOAKA', 'Antsa Cyprienna', 3)
+    ('ENC003', 'rakotoas.cyprienna@gmail.com', 'antsa', 'RAKOTOASIMBAHOAKA', 'Antsa Cyprienna', 3),
     ('ENC004', 'siakamail1@gmail.com', 'siaka', 'SIAKA', '-', 2),
     ('ENC005', NULL, NULL, 'GILANTE', 'Gesazafy', 2),
     ('ENC006', NULL, NULL, 'RANDRIANOMENJANAHARY', 'Ferdinand', 2),
