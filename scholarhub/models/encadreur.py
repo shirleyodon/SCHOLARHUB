@@ -4,7 +4,7 @@ class EncadreurPedagogique(db.Model):
     __tablename__ = 'encadreurPedagogique'
     matEncad = db.Column('MatEncad', db.String(10), primary_key=True)
     emailEncad = db.Column('EmailEncad', db.String(50))
-    motPasseEncad = db.Column('MotPasseEncad', db.String(50))
+    motPasseEncad = db.Column('MotPasseEncad', db.String(70))
     nomEncad = db.Column('NomEncad', db.String(30), nullable=False)
     prenomEncad = db.Column('PrenomEncad', db.String(50), nullable=False)
     # Many-to-one with TitreEncadreur

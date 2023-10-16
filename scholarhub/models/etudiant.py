@@ -7,7 +7,7 @@ class Etudiant(db.Model):
     __tablename__ = 'etudiant'
     matEtud = db.Column('MatEtud', db.String(10), primary_key=True)
     emailEtud = db.Column('EmailEtud', db.String(50))
-    motPasseEtud = db.Column('MotPasseEtud', db.String(50))
+    motPasseEtud = db.Column('MotPasseEtud', db.String(70))
     nomEtud = db.Column('NomEtud', db.String(30), nullable=False)
     prenomEtud = db.Column('PrenomEtud', db.String(50), nullable=False)
 
