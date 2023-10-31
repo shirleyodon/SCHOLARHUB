@@ -1,6 +1,8 @@
 __pycache__/
 backend/app/__pycache__/
 backend/env/
+backend/.dockerignore
 frontend/app/__pycache__/
 frontend/env/
+frontend/.dockerignore
 docker-compose2.yml
