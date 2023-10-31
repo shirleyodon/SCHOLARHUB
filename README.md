@@ -2,76 +2,65 @@
 
 ## Description
 
-Une plateforme de gestion en ligne des travaux académiques des étudiants. <br/>
-Le backend est développé en Flask et SQLAlchemy tandis que le frontend est en Reactjs
+Une plateforme de gestion en ligne des travaux académiques des étudiants de l'Ecole Nationale d'Informatique Fianarantsoa <br/>
+L'application est entièrement développé en Python Flask.
 
 ## Structure du projet
+
     scholarhub/
-    |__ /scholarhub/
-    |  |__ models/
-    |     |__annee.py
-    |     |__categorie.py
-    |     |__encadreur.py
-    |     |__etablissement.py
-    |     |__etudiant.py
-    |     |__inscription.py
-    |     |__livre.py
-    |     |__niveau.py
-    |     |__parcours.py
-    |     |__redaction.py
-    |     |__titre.py
-    |  |__ utils/
-    |     |__annee.py
-    |     |__categorie.py
-    |     |__encadreur.py
-    |     |__etablissement.py
-    |     |__etudiant.py
-    |     |__inscription.py
-    |     |__livre.py
-    |     |__niveau.py
-    |     |__parcours.py
-    |     |__redaction.py
-    |     |__titre.py
-    |  |__ views/
-    |     |__annee.py
-    |     |__categorie.py
-    |     |__encadreur.py
-    |     |__etablissement.py
-    |     |__etudiant.py
-    |     |__inscription.py
-    |     |__livre.py
-    |     |__niveau.py
-    |     |__parcours.py
-    |     |__redaction.py
-    |     |__titre.py
-    |   |__ __init__.py
-    |   |__ config.py
-    |__ init.sql
-    |__ launch.py
-    |__ requirements.txt
+    |__ backend/
+    |   |__ app/
+    |   |  |__ models/
+    |   |  |__ utils/
+    |   |  |__ views/
+    |   |  |__ __init__.py
+    |   |  |__ config.py
+    |   |
+    |   |__ Dockerfile
+    |   |__ init.sql
+    |   |__ requirements.txt
+    |
+    |__ frontend/
+    |    |__ app/
+    |    |  |__ models/
+    |    |  |__ static/
+    |    |  |  |__ bi/
+    |    |  |  |__ css/
+    |    |  |  |__ fonts/
+    |    |  |  |__ icon/
+    |    |  |  |__ img/
+    |    |  |  |__ js/
+    |    |  |
+    |    |  |__ templates/
+    |    |  |__ utils/
+    |    |  |__ views/
+    |    |  |__ __init__.py
+    |    |  |__ config.py
+    |    |
+    |    |__ Dockerfile
+    |    |__ launch.py
+    |    |__ requirements.txt
+    |
+    |__ docker-compose.yml
+    |__ README.md
 
-  ## Lancement du projet sans docker compose
-  
-  1. Clonez le dépôt: <br/>
-     https://github.com/shirleyodon/SCHOLARHUB.git <br/>
-     cd SCHLARHUB
-     
-  2. Installez les dépendances: <br/>
-     pip install -r requirements.txt
-     
-  3. Lancez l'application: <br/>
-     python launch.py
+## Lancement du projet avec docker compose
 
-  ## Lancement du projet avec docker compose
+1. Clonez le dépôt : <br/>
+   https://github.com/shirleyodon/SCHOLARHUB.git <br/>
+   cd SCHLARHUB
 
-  1. Clonez le dépôt : <br/>
-     https://github.com/shirleyodon/SCHOLARHUB.git <br/>
-     cd SCHLARHUB
+2. Builder les images docker: <br/>
 
-  2. Builder l'image docker: <br/>
-     docker build -t shirley/scholarhub:backend .
+   ### Backend
 
-  3. Lancer l'application : <br/>
-     docker compose up
-  
-  
+   cd backend/
+   docker build -t shirley/scholarhub:backend .
+
+   ### Frontend
+
+   cd frontend/
+   docker build -t shirley/scholarhub:frontend .
+
+3. Lancer l'application : <br/>
+   docker compose up
