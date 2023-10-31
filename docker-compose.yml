@@ -26,7 +26,7 @@ services:
     image: shirley/scholarhub:frontend
     container_name: frontend
     ports:
-      - "5000:5001"
+      - "5001:5001"
     command: sh -c "python launch.py"
     depends_on:
       - backend
