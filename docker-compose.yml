@@ -9,22 +9,10 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: memoire
     volumes:
-      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - scholarhub:/var/lib/postgresql/data
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # - scholarhub:/var/lib/postgresql/data
     ports:
       - 5432:5432
-
-  # pgadmin:
-  #   image: dpage/pgadmin4:latest
-  #   container_name: pgadmin
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: admin@scholarhub.com
-  #     PGADMIN_DEFAULT_PASSWORD: admin
-  #     PGADMIN_LISTEN_PORT: 80
-  #   ports:
-  #     - 15432:80
-  #   depends_on:
-  #     - database
 
   # backend:
   #   image: shirley/scholarhub:backend
@@ -34,6 +22,5 @@ services:
   #   command: sh -c "sleep 20s; python launch.py"
   #   depends_on:
   #     - database
-
-volumes:
-  scholarhub:
+# volumes:
+#   scholarhub:

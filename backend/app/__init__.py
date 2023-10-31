@@ -1,14 +1,15 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import scholarhub.config
+import app.config as conf
 
 # Create Sqlalchemy instance
 db = SQLAlchemy()
 
+
 def create_app():
     # Create flask app
     app = Flask(__name__)
-    app.config.from_object(scholarhub.config)
+    app.config.from_object(conf)
 
     db.init_app(app)
 
