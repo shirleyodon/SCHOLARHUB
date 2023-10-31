@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inscription</title>
+
+    <!-- css -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap-grid.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='bi/bootstrap-icons.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/global.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/register.css') }}"
+    />
+  </head>
+  <body>
+    <div class="row main">
+      <!-- Banner -->
+      <div class="container banner">
+        <img
+          src="{{ url_for('static', filename='img/banner.png') }}"
+          class="img-fluid"
+          alt="Une pile de livre"
+        />
+      </div>
+      <!-- End banner -->
+
+      <!-- Aside banner -->
+      <div class="container aside">
+        <!-- Header -->
+        <div class="row justify-content-between header">
+          <!-- Logo -->
+          <div class="col-4 logo">
+            <a href="#" class="navbar-brand">
+              <img
+                src="{{ url_for('static', filename='icon/icon-logo.png') }}"
+                alt="Icon du logo"
+              />ScholarHub
+            </a>
+          </div>
+          <!-- End logo -->
+
+          <!-- Login -->
+          <div class="col-4 text-end login">
+            <p>
+              As-tu déjà un compte ?
+              <a href="{{ url_for('login_route.login') }}">Se connecter</a>
+            </p>
+          </div>
+          <!-- End login -->
+        </div>
+        <!-- End header -->
+
+        {% if alert %}
+        <!-- Alert -->
+        <div
+          class="alert alert-danger alert-dismissible fade show float-start alert-custom"
+          role="alert"
+        >
+          <h5>Echec d'enregistrement</h5>
+          {{ alert.message }} !
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        <!-- End alert -->
+        {% endif %}
+
+        <!-- Register form -->
+        <div class="container text-center form">
+          <h1>Créer un compte</h1>
+
+          <form class="needs-validation" method="post" action="" novalidate>
+            <div class="row g-3 justify-content-center">
+              <!-- Account type -->
+              <div class="account-type col-lg-10 col-md-10 col-sm-12">
+                <!-- Student option -->
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="account-type-option"
+                    id="student-account-option"
+                    value="student-option"
+                    checked
+                  />
+                  <label class="form-check-label" for="student-account-option"
+                    >Etudiant</label
+                  >
+                </div>
+                <!-- End student option -->
+
+                <!-- Teacher option -->
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="account-type-option"
+                    id="teacher-account-option"
+                    value="teacher-option"
+                  />
+                  <label class="form-check-label" for="teacher-account-option"
+                    >Enseignant</label
+                  >
+                </div>
+                <!-- End teacher option -->
+              </div>
+              <!-- End account type -->
+
+              <div class="input-group col-lg-10 col-md-10 col-sm-12">
+                <span class="input-group-text"><i class="bi bi-hash"></i></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="matricule"
+                  id="matricule"
+                  placeholder="N° matricule"
+                  {%
+                  if
+                  previous_data
+                  %}value="{{ previous_data.matricule }}"
+                  {%
+                  endif
+                  %}
+                  required
+                />
+                <div class="invalid-feedback text-end">
+                  Veuillez saisir votre N° matricule !
+                </div>
+              </div>
+
+              <div class="input-group col-lg-10 col-md-10 col-sm-12">
+                <span class="input-group-text"
+                  ><i class="bi bi-person-fill"></i
+                ></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  id="name"
+                  placeholder="Nom"
+                  {%
+                  if
+                  previous_data
+                  %}value="{{ previous_data.name }}"
+                  {%
+                  endif
+                  %}
+                  required
+                />
+                <div class="invalid-feedback text-end">
+                  Veuillez saisir votre Nom !
+                </div>
+              </div>
+
+              <div class="input-group col-lg-10 col-md-10 col-sm-12">
+                <span class="input-group-text"
+                  ><i class="bi bi-envelope-fill"></i
+                ></span>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  id="email"
+                  placeholder="E-mail"
+                  {%
+                  if
+                  previous_data
+                  %}value="{{ previous_data.email }}"
+                  {%
+                  endif
+                  %}
+                  required
+                />
+                <div class="invalid-feedback text-end">
+                  Veuillez saisir un E-mail valide !
+                </div>
+              </div>
+
+              <div class="input-group col-lg-10 col-md-10 col-sm-12">
+                <span class="input-group-text"
+                  ><i class="bi bi-key-fill"></i
+                ></span>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="password"
+                  placeholder="Mot de passe"
+                  {%
+                  if
+                  previous_data
+                  %}value="{{ previous_data.password }}"
+                  {%
+                  endif
+                  %}
+                  required
+                />
+                <div class="invalid-feedback text-end">
+                  Veuillez saisir votre mot de passe !
+                </div>
+              </div>
+
+              <div class="input-group col-lg-10 col-md-10 col-sm-12">
+                <span class="input-group-text"
+                  ><i class="bi bi-shield-lock-fill"></i
+                ></span>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="confirm-password"
+                  id="confirm-password"
+                  placeholder="Confirmer votre mot de passe"
+                  {%
+                  if
+                  previous_data
+                  %}value="{{ previous_data.get('confirm-password') }}"
+                  {%
+                  endif
+                  %}
+                  required
+                />
+                <div class="invalid-feedback text-end">
+                  Veuillez confirmer votre mot de passe !
+                </div>
+              </div>
+
+              <input
+                type="submit"
+                class="btn btn-primary btn-custom col-lg-5 col-md-8 col-sm-12"
+                value="S'inscrire"
+              />
+            </div>
+          </form>
+        </div>
+        <!-- End register form -->
+      </div>
+      <!-- End aside banner -->
+    </div>
+
+    <!-- Javascript -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/form.validator.register.js') }}"></script>
+  </body>
+</html>

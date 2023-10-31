@@ -1,0 +1,66 @@
+@import url("result.css");
+
+/* Selected book */
+.main .selected-book {
+  border: 1px solid white 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Returned arrow */
+.selected-book .returned-arrow .btn-custom:hover {
+  background-color: #18a337;
+  border-color: #18a337;
+  color: white;
+}
+
+/* Book details */
+.selected-book .book-details .book-title {
+  margin-top: 40px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.book-details .details,
+.book-details .resume,
+.book-details .consult-btn {
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+/* Resume */
+.resume > header {
+  font-weight: bold;
+}
+
+.resume .resume-text,
+.resume > p {
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+.resume .resume-text {
+  padding: 10px;
+  text-align: justify;
+  border: 1px solid lightgrey;
+}
+
+.resume .key-word {
+  text-decoration: underline;
+}
+
+/* Consult button */
+.book-details .consult-btn {
+  padding-top: 30px;
+}
+
+.consult-btn .btn-custom {
+  background-color: white;
+  border-color: #1bb53d;
+  color: #1bb53d;
+}
+
+.consult-btn .btn-custom:hover {
+  background-color: #18a337;
+  border-color: #18a337;
+  color: white;
+}

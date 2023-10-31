@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authentification</title>
+
+    <!-- css -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap-grid.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='bi/bootstrap-icons.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/global.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/login.css') }}"
+    />
+  </head>
+  <body>
+    <div class="row main">
+      <!-- Banner -->
+      <div class="container banner">
+        <img
+          src="{{ url_for('static', filename='img/banner.png') }}"
+          class="img-fluid"
+          alt="Une pile de livre"
+        />
+      </div>
+      <!-- End banner -->
+
+      <!-- Aside banner -->
+      <div class="container aside">
+        <!-- Header -->
+        <div class="row justify-content-between header">
+          <!-- Logo -->
+          <div class="col-4 logo">
+            <a href="#" class="navbar-brand">
+              <img
+                src="{{ url_for('static', filename='icon/icon-logo.png') }}"
+                alt="Icon du logo"
+              />ScholarHub
+            </a>
+          </div>
+          <!-- End logo -->
+
+          <!-- Register -->
+          <div class="col-4 text-end register">
+            <p>
+              As-tu déjà un compte ?
+              <a href="{{ url_for('register_route.register') }}">S'inscrire</a>
+            </p>
+          </div>
+          <!-- End register -->
+        </div>
+        <!-- End header -->
+
+        {% if alert %}
+        <!-- Alert -->
+        <div
+          class="alert alert-danger alert-dismissible fade show float-start alert-custom"
+          role="alert"
+        >
+          <h5>Echec d'authentification</h5>
+          {{ alert.message }} !
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        <!-- End alert -->
+        {% endif %}
+
+        <!-- Login form -->
+        <div class="container text-center form">
+          <h1>Bienvenu !</h1>
+          <h6>
+            Saisissez vos données d'identification pour acceder à votre compte
+          </h6>
+
+          <form class="needs-validation" method="post" action="" novalidate>
+            <div class="row g-4 justify-content-center">
+              <!-- Account type -->
+              <div class="account-type col-lg-10 col-md-10 col-sm-12">
+                <!-- Student option -->
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="account-type-option"
+                    id="student-account-option"
+                    value="student-option"
+                    checked
+                  />
+                  <label class="form-check-label" for="student-account-option"
+                    >Etud.</label
+                  >
+                </div>
+                <!-- End student option -->
+
+                <!-- Teacher option -->
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="account-type-option"
+                    id="teacher-account-option"
+                    value="teacher-option"
+                  />
+                  <label class="form-check-label" for="teacher-account-option"
+                    >Enseign.</label
+                  >
+                </div>
+                <!-- End teacher option -->
+
+                <!-- Admin option -->
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="account-type-option"
+                    id="admin-account-option"
+                    value="admin-option"
+                  />
+                  <label class="form-check-label" for="admin-account-option"
+                    >Admin.</label
+                  >
+                </div>
+                <!-- End admin option -->
+              </div>
+              <!-- End account type -->
+
+              <!-- Inputs -->
+              <div class="input-group col-lg-10 col-md-10 col-sm-12">
+                <span class="input-group-text"
+                  ><i class="bi bi-envelope-fill"></i
+                ></span>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  id="email"
+                  placeholder="E-mail"
+                  {%
+                  if
+                  previous_email
+                  %}value="{{ previous_email }}"
+                  {%
+                  endif
+                  %}
+                  required
+                />
+                <div class="invalid-feedback text-end">
+                  Veuillez saisir un E-mail valide !
+                </div>
+              </div>
+
+              <div class="input-group col-lg-10 col-md-10 col-sm-12">
+                <span class="input-group-text"
+                  ><i class="bi bi-key-fill"></i
+                ></span>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="password"
+                  placeholder="Mot de passe"
+                  required
+                />
+                <div class="invalid-feedback text-end">
+                  Veuillez saisir votre mot de passe !
+                </div>
+              </div>
+              <!-- End Input -->
+
+              <input
+                type="submit"
+                class="btn btn-primary btn-custom col-lg-5 col-md-8 col-sm-12"
+                value="Se connecter"
+              />
+            </div>
+          </form>
+        </div>
+        <!-- End login form -->
+      </div>
+      <!-- End aside banner -->
+    </div>
+
+    <!-- Javascript -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/form.validator.js') }}"></script>
+  </body>
+</html>

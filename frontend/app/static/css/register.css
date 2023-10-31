@@ -1,0 +1,30 @@
+@import url("login.css");
+
+/* Login */
+.aside .login a {
+  color: #1bb53d;
+  text-decoration: none;
+}
+
+/* Alert */
+.aside .alert-custom {
+  margin-top: 9%;
+}
+
+/* Login form */
+.aside .form {
+  margin-top: 15%;
+}
+
+.form h1 {
+  margin-bottom: 30px;
+}
+
+.form .account-type {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.account-type input:checked {
+  background-color: #1bb53d;
+}

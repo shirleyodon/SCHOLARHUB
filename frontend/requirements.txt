@@ -1,0 +1,4 @@
+Flask
+Flask-bcrypt
+requests
+Flask-login

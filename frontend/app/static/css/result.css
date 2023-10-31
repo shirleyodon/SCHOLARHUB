@@ -1,0 +1,87 @@
+@charset "utf-8";
+
+body {
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Logo */
+.header .logo a {
+  color: black;
+}
+
+/* Logout */
+.header .logout {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logout .custom_logout {
+  text-decoration: none;
+  color: black;
+}
+
+.logout .custom_logout:hover {
+  background-color: #1bb53d;
+  color: white;
+}
+/* End logout */
+
+.main {
+  margin: 0;
+  margin-top: 20px;
+  height: 90%;
+}
+
+/* Search bar */
+.main .search-bar {
+  margin-left: 15px;
+  height: 220px;
+  border: 1px solid white 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.search-bar .search-input {
+  padding-top: 10px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.search-bar .bar .btn-custom {
+  border-color: #1bb53d;
+  color: #1bb53d;
+}
+
+.search-bar .bar .btn-custom:hover {
+  background-color: #18a337;
+  border-color: #18a337;
+  color: white;
+}
+
+/* Search result */
+.main .search-result .book-title {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.main .search-result .book-title:hover {
+  text-decoration: underline;
+  text-transform: uppercase;
+  color: #1bb53d;
+}
+
+/* Pagination */
+.main .page .custom-page-link {
+  color: #1bb53d;
+}
+
+.main .page .custom-active {
+  color: white;
+  background-color: #1bb53d;
+}
+
+.main .page .custom-disabled {
+  color: grey;
+}

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acceuil</title>
+
+    <!-- css -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap-grid.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='bi/bootstrap-icons.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/global.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/home.css') }}"
+    />
+  </head>
+  <body>
+{% if user %}
+
+    <!-- Header -->
+    <header class="container-fluid header">
+      <div class="row justify-content-between">
+        <!-- Logo -->
+        <div class="col-4 logo">
+          <a href="#" class="navbar-brand">
+            <img
+              src="{{ url_for('static', filename='icon/icon-logo.png') }}"
+              alt="Icon du logo"
+            />ScholarHub
+          </a>
+        </div>
+        <!-- End logo -->
+
+        <!-- Logout button -->
+        <div class="col-4 logout">
+          <a href="{{ url_for('logout_route.logout') }}" class="btn btn-link btn-sm custom_logout">
+            <i class="bi bi-box-arrow-right"></i>
+            Se déconnecter
+          </a>
+        </div>
+        <!-- End logout button -->
+      </div>
+    </header>
+    <!-- End header -->
+
+    <!-- Search bar-->
+    <div class="container text-center search-bar">
+      <h1>Découvrer notre bibliothèque en ligne !</h1>
+      <form class="needs-validation" method="post" action="" novalidate>
+        <div class="row g-1 bar">
+          <!-- Search input -->
+          <div class="input-group search-input col-lg-4 col-md-4 col-sm-12">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input
+              type="search"
+              class="form-control"
+              name="search"
+              id="search"
+              placeholder="Mots clés"
+              {%
+              if
+              previous_form
+              %}value="{{ previous_form['search'] }}"
+              {%
+              endif
+              %}
+              required
+            />
+          </div>
+          <!-- End search input -->
+
+          <!-- Select search option -->
+          {% set selected_cat = "0" %}
+          {% set selected_parc = "0" %}
+          {% set selected_niv = "0" %}
+
+          {% if previous_form %}
+            {% set selected_cat = previous_form['categorie'] %}
+            {% set selected_parc = previous_form['parcours'] %}
+            {% set selected_niv = previous_form['niveau'] %}
+          {% endif %}
+
+          <select
+            name="categorie"
+            class="form-select col-lg-2 col-md-2 col-sm-12"
+          >
+            <option value="0" {% if selected_cat == "0" %} selected {% endif %}>Catégorie</option>
+            <option value="1" {% if selected_cat == "1" %} selected {% endif %}>Rapport de projet</option>
+            <option value="2" {% if selected_cat == "2" %} selected {% endif %}>Rapport de stage</option>
+            <option value="3" {% if selected_cat == "3" %} selected {% endif %}>Mémoire</option>
+          </select>
+
+          <select
+            name="parcours"
+            class="form-select col-lg-2 col-md-2 col-sm-12"
+          >
+            <option value="0" {% if selected_parc == "0" %} selected {% endif %}>Parcours</option>
+            <option value="1" {% if selected_parc == "1" %} selected {% endif %}>GB</option>
+            <option value="2" {% if selected_parc == "2" %} selected {% endif %}>ASR</option>
+            <option value="3" {% if selected_parc == "3" %} selected {% endif %}>IG</option>
+          </select>
+
+          <select name="niveau" class="form-select col-lg-2 col-md-2 col-sm-12">
+            <option value="0" {% if selected_niv == "0" %} selected {% endif %}>Niveau</option>
+            <option value="1" {% if selected_niv == "1" %} selected {% endif %}>L1</option>
+            <option value="2" {% if selected_niv == "2" %} selected {% endif %}>L2</option>
+            <option value="3" {% if selected_niv == "3" %} selected {% endif %}>L3</option>
+            <option value="4" {% if selected_niv == "4" %} selected {% endif %}>M1</option>
+            <option value="5" {% if selected_niv == "5" %} selected {% endif %}>M2</option>
+          </select>
+          <!-- End select search option -->
+
+          <!-- Search button -->
+          <input
+            type="submit"
+            class="btn btn-primary btn-custom col-lg-2 col-md-2 col-sm-12"
+            value="Rechercher"
+          />
+          <!-- End search button -->
+        </div>
+      </form>
+    </div>
+    <!-- End search bar -->
+
+    <!-- Javascript -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/search.form.validator.js') }}"></script>
+
+{% else %}
+    <!-- If no user -->
+    
+    <div class="container custom-alert">
+      <div class="alert alert-danger" role="alert">
+        Veuillez d'abord vous
+        <a href="{{ url_for('login_route.login') }}" class="alert-link"
+          >connecter</a
+        >
+        avant de pouvoir acceder à cette page !
+      </div>
+    </div>
+    <!-- End no user -->
+{% endif %}
+  </body>
+</html>
