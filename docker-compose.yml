@@ -10,17 +10,23 @@ services:
       POSTGRES_DB: memoire
     volumes:
       - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
-      # - scholarhub:/var/lib/postgresql/data
     ports:
       - 5432:5432
 
-  # backend:
-  #   image: shirley/scholarhub:backend
-  #   container_name: backend
-  #   ports:
-  #     - '5000:5000'
-  #   command: sh -c "sleep 20s; python launch.py"
-  #   depends_on:
-  #     - database
-# volumes:
-#   scholarhub:
+  backend:
+    image: shirley/scholarhub:backend
+    container_name: backend
+    ports:
+      - "5000:5000"
+    command: sh -c "sleep 20s; python launch.py"
+    depends_on:
+      - database
+
+  frontend:
+    image: shirley/scholarhub:frontend
+    container_name: frontend
+    ports:
+      - "5000:5001"
+    command: sh -c "python launch.py"
+    depends_on:
+      - backend
