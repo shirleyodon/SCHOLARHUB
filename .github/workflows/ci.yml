@@ -42,8 +42,8 @@ jobs:
       - name: Build and push to DockerHub
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          context: .
-          dockerfile: backend/Dockerfile
+          context: backend
+          dockerfile: Dockerfile
           registry: docker.io
           image: tafitashirley/scholarhub-backend
           username: ${{ secrets.DOCKER_USERNAME }}
