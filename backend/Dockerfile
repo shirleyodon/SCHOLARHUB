@@ -3,5 +3,5 @@ EXPOSE 5000
 WORKDIR /backend
 COPY . /backend
 RUN pip install -r requirements.txt
-CMD python launch.py
+CMD ["gunicorn", "-b", ":5000", "run:app"]
 

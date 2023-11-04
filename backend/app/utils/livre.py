@@ -1,8 +1,7 @@
 from ..models import Livre
 
+
 # Object Livre to dictionnary
-
-
 def livre_to_dict_1(livre):
     return {
         'RefLivre': livre.refLivre,
@@ -44,21 +43,20 @@ def livre_to_dict_2(livre):
         'Etudiants': [etudiant_to_dict_3(etud) for etud in livre.etudiants]
     }
 
+
 # Get all Livre
-
-
 def get_all_livre():
     return Livre.query.all()
 
+
 # Get a Livre
-
-
 def get_livre(refLivre):
-    return Livre.query.get(refLivre)
+    from .. import db
+    return db.session.get(Livre, refLivre)
+    # return Livre.query.get(refLivre)
+
 
 # Create a Livre from Json data
-
-
 def create_livre(json_data):
     return Livre(
         json_data.get('MotCle'),
@@ -73,9 +71,8 @@ def create_livre(json_data):
         json_data.get('NumCat')
     )
 
+
 # Update a Livre object with Json data
-
-
 def update_livre(livre, json_data):
     livre.motCle = json_data.get('MotCle')
     livre.nbPage = json_data.get('NbPage')
@@ -89,18 +86,18 @@ def update_livre(livre, json_data):
     livre.numCat = json_data.get('NumCat')
 
 
-# Search a Livre by Theme
+# Search Livre by Theme
 def search_livre_by_theme(theme):
     return Livre.query.filter(Livre.theme.ilike(f'%{theme}%'))
 
 
-# Search a Livre by Categorie
+# Search Livre by Categorie
 def search_livre_by_categorie(libelleCat):
     from .categorie import search_categorie_by_libelle
     return Livre.query.filter_by(categorieLivre=search_categorie_by_libelle(libelleCat))
 
 
-# Search a Livre by Parcours
+# Search Livre by Parcours
 def search_livre_by_parcours(libelleParc):
     from ..models import Etudiant
     from .etudiant import search_etudiant_by_parcours
@@ -110,13 +107,13 @@ def search_livre_by_parcours(libelleParc):
     return Livre.query.filter(Livre.etudiants.any(Etudiant.matEtud.in_(matricules))).all()
 
 
-# Search a Livre by Niveau
+# Search Livre by Niveau
 def search_livre_by_niveau(libelleNiv):
     from .niveau import search_niveau_by_libelle
     return Livre.query.filter_by(niveauEtude=search_niveau_by_libelle(libelleNiv))
 
 
-# Search a Livre by Theme - Categorie - Parcours - Niveau
+# Search Livre by Theme - Categorie - Parcours - Niveau
 def search_livre_by_theme_categorie_parcours_niveau(theme, cat, parc, niv):
     livres_by_theme = search_livre_by_theme(theme)
 
@@ -158,3 +155,23 @@ def search_livre_by_theme_categorie_parcours_niveau(theme, cat, parc, niv):
 
     else:
         return []
+
+
+# Search Livre by Encadreur
+def search_livre_by_encadreur(nom, prenom=None):
+    from .encadreur import search_encadreur_by_names
+
+    return Livre.query.filter_by(
+        encadreurPedagogique=search_encadreur_by_names(nom, prenom)
+    )
+
+
+# Search Livre by Etudiant
+def search_livre_by_etudiant(nom, prenom=None):
+    from ..models import Etudiant
+    from .etudiant import search_etudiant_by_names
+
+    matricules = [
+        etudiant.matEtud for etudiant in search_etudiant_by_names(nom, prenom)]
+
+    return Livre.query.filter(Livre.etudiants.any(Etudiant.matEtud.in_(matricules))).all()

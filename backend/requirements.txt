@@ -1,4 +1,9 @@
 Flask
 Flask-SQLAlchemy
-psycopg2-binary
 Flask-bcrypt
+Flask_testing
+gunicorn
+psycopg2-binary
+Pytest
+
+

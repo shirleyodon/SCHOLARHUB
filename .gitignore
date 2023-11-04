@@ -1,7 +1,10 @@
 __pycache__/
+.vscode/
+backend/.pytest_cache/
 backend/app/__pycache__/
 backend/env/
 backend/.dockerignore
+frontend/.pytest_cache/
 frontend/app/__pycache__/
 frontend/env/
 frontend/.dockerignore

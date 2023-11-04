@@ -50,7 +50,9 @@ def get_all_etudiant():
 
 # Get an Etudiant
 def get_etudiant(matEtud):
-    return Etudiant.query.get(matEtud)
+    from .. import db
+    return db.session.get(Etudiant, matEtud)
+    # return Etudiant.query.get(matEtud)
 
 
 # Search an Etudiant by E-mail
@@ -87,3 +89,16 @@ def update_etudiant(etud, json_data):
 def search_etudiant_by_parcours(libelleParc):
     from .parcours import search_parcours_by_libelle
     return Etudiant.query.filter_by(parcoursEtude=search_parcours_by_libelle(libelleParc)).all()
+
+
+# Search Etudiant by names
+def search_etudiant_by_names(nom, prenom=None):
+    if prenom:
+        return Etudiant.query.filter(
+            Etudiant.nomEtud.ilike(f'{nom}'),
+            Etudiant.prenomEtud.ilike(f'{prenom}')
+        ).first()
+    else:
+        return Etudiant.query.filter(
+            Etudiant.nomEtud.ilike(f'{nom}')
+        ).first()

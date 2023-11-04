@@ -1,2 +1,4 @@
 env/
+tests/
+launch_tests
 init.sql

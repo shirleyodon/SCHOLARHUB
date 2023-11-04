@@ -18,7 +18,7 @@ services:
     container_name: backend
     ports:
       - "5000:5000"
-    command: sh -c "sleep 20s; python launch.py"
+    command: sh -c "sleep 10s; gunicorn -b :5000 launch:app --reload"
     depends_on:
       - database
 
@@ -27,6 +27,6 @@ services:
     container_name: frontend
     ports:
       - "5001:5001"
-    command: sh -c "python launch.py"
+    command: sh -c "sleep 15s; gunicorn -b :5001 launch:app --reload"
     depends_on:
       - backend

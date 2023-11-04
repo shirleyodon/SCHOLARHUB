@@ -1,8 +1,7 @@
 from ..models import CategorieLivre
 
+
 # Object CategorieLivre to dictionnary
-
-
 def categorie_to_dict_1(cat):
     return {
         'NumCat': cat.numCat,
@@ -19,27 +18,25 @@ def categorie_to_dict_2(cat):
         'Livres': [livre_to_dict_1(livre) for livre in cat.livres]
     }
 
+
 # Get all CategorieLivre
-
-
 def get_all_categorie():
     return CategorieLivre.query.all()
 
+
 # Get a CategorieLivre
-
-
 def get_categorie(numCat):
-    return CategorieLivre.query.get(numCat)
+    from .. import db
+    return db.session.get(CategorieLivre, numCat)
+    # return CategorieLivre.query.get(numCat)
+
 
 # Create a CategorieLivre from Json data
-
-
 def create_categorie(json_data):
     return CategorieLivre(json_data.get('LibelleCat'))
 
+
 # Update a CategorieLivre object with Json data
-
-
 def update_categorie(cat, json_data):
     cat.libelleCat = json_data.get('LibelleCat')
 

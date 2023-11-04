@@ -28,7 +28,9 @@ def get_all_niveau():
 
 # Get a NiveauEtude
 def get_niveau(idNiv):
-    return NiveauEtude.query.get(idNiv)
+    from .. import db
+    return db.session.get(NiveauEtude, idNiv)
+    # return NiveauEtude.query.get(idNiv)
 
 
 # Create NiveauEtude object with Json data
