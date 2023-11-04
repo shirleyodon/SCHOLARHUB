@@ -44,7 +44,7 @@ jobs:
         with:
           image: tafitashirley/scholarhub-backend
           context: ./backend
-          dockerfile: ./backend/myDockerfile
+          dockerfile: ./backend/
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
