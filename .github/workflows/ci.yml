@@ -43,7 +43,7 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
           directory: backend
-          dockerfile: Dockerfile
+          dockerfile: backend/Dockerfile
           registry: docker.io
           image: tafitashirley/scholarhub-backend
           username: ${{ secrets.DOCKER_USERNAME }}
