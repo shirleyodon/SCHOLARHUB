@@ -99,6 +99,8 @@ jobs:
     environment: TEST
 
     steps:
+      - uses: actions/checkout@v3
+      
       - name: Place here the Minikube delpoyment action
       - run: |
           echo "Hello everyone !"
