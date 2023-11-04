@@ -73,6 +73,7 @@ def get_or_update_or_delete_etudiant(matEtud):
 def search_by_email(email):
     try:
         etudiant = search_etudiant_by_email(email)
+
         # Si l'etudiant n'existe pas
         if not etudiant:
             return jsonify({'Erreur': "Aucun compte rataché à cet E-mail n'a été trouvé"}), 404
