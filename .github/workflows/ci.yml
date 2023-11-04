@@ -86,6 +86,6 @@ jobs:
           directory: frontend
           dockerfile: frontend/Dockerfile
           registry: docker.io
-          image: tafitashirley/scholarhub-backend
+          image: tafitashirley/scholarhub-frontend
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
