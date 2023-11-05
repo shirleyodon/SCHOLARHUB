@@ -1,4 +1,4 @@
-name: Email notification on pull request
+name: Email notification on a pull request
 
 on:
   pull_request:
