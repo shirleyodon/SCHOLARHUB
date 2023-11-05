@@ -1,0 +1,28 @@
+name: Email notification on pull request
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - test
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Send email
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: New Pull Request on Your Repository
+          to: tafitagasy@gmail.com
+          from: Shirley <${{ secrets.MAIL_USERNAME }}>
+          body: A new pull request has been opened.
