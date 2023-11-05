@@ -5,113 +5,110 @@ name: Deployment to minikube
 
 on:
   push:
-    branches: [ "test" ]
+    branches: ["test"]
 
 jobs:
   backend:
-    name : Test, build and push backend
+    name: Test, build and push backend
     runs-on: ubuntu-latest
     environment: TEST
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-        
-    - name: Install dependencies
-      if: contains(github.event.head_commit.message, 'backend')
-      run: |
-        cd backend/
-        python -m pip install --upgrade pip
-        pip install flake8
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        
-    - name: Lint with flake8
-      if: contains(github.event.head_commit.message, 'backend')
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    
-    - name: Run backend unit test
-      if: contains(github.event.head_commit.message, 'backend')
-      run: |
-        cd backend/
-        python launch_tests.py
+      - uses: actions/checkout@v3
 
-    - name: Build and push to DockerHub
-      if: contains(github.event.head_commit.message, 'backend')
-      uses: mr-smithers-excellent/docker-build-push@v6
-      with:
-        image: tafitashirley/scholarhub-backend
-        directory: backend
-        dockerfile: backend/Dockerfile
-        registry: docker.io
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
 
-    - name: Do nothing
-      if: ${{ !contains(github.event.head_commit.message, 'backend') }}
-      run: echo "The change on the commit do not affect backend files"
-        
+      - name: Install dependencies
+        if: contains(github.event.head_commit.message, 'backend')
+        run: |
+          cd backend/
+          python -m pip install --upgrade pip
+          pip install flake8
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
+      - name: Lint with flake8
+        if: contains(github.event.head_commit.message, 'backend')
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Run backend unit test
+        if: contains(github.event.head_commit.message, 'backend')
+        run: |
+          cd backend/
+          python launch_tests.py
+
+      - name: Build and push to DockerHub
+        if: contains(github.event.head_commit.message, 'backend')
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: tafitashirley/scholarhub-backend
+          directory: backend
+          dockerfile: backend/Dockerfile
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Do nothing
+        if: ${{ !contains(github.event.head_commit.message, 'backend') }}
+        run: echo "The change on the commit do not affect backend files"
 
   frontend:
     name: Test, build and push frontend
     runs-on: ubuntu-latest
     environment: TEST
     if: contains(github.event.head_commit.message, 'frontend')
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-        
-    - name: Install dependencies
-      run: |
-        cd frontend/
-        python -m pip install --upgrade pip
-        pip install flake8
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    
-    - name: Run frontend unit test
-      run: |
-        cd frontend/
-        python launch_tests.py
 
-    - name: Build and push to DockerHub
-      uses: mr-smithers-excellent/docker-build-push@v6
-      with:
-        image: tafitashirley/scholarhub-frontend
-        directory: frontend
-        dockerfile: frontend/Dockerfile
-        registry: docker.io
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          cd frontend/
+          python -m pip install --upgrade pip
+          pip install flake8
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Run frontend unit test
+        run: |
+          cd frontend/
+          python launch_tests.py
+
+      - name: Build and push to DockerHub
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: tafitashirley/scholarhub-frontend
+          directory: frontend
+          dockerfile: frontend/Dockerfile
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
   deployment:
     name: Deployment to minikube
     needs: [backend, frontend]
     runs-on: ubuntu-latest
     environment: TEST
-    
+
     steps:
-    - uses: actions/checkout@v3
-      
-    - name: Place here the Minikube delpoyment action
-      run: |
-        echo "Hop, deploy to Minikube !"
+      - uses: actions/checkout@v3
+
+      - name: Place here the Minikube delpoyment action
+        run: echo "Hop, deploy to Minikube !"
