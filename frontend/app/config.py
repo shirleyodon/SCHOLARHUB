@@ -1,3 +1,8 @@
-BACKEND_BASE_URL = "http://backend:5000/sh/"
+import os
 
-SECRET_KEY = "}c7@U4}C[rrXKS,r2Y+~E5O["
+class Config():
+    BACKEND_HOST = os.environ.get('BACKEND_HOST')
+
+    BACKEND_BASE_URL = f"http://{BACKEND_HOST}:5000/sh/"
+
+    SECRET_KEY = "}c7@U4}C[rrXKS,r2Y+~E5O["

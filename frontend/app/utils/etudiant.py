@@ -1,7 +1,8 @@
 import requests
 from ..models import Etudiant, EtudiantPlus, Success, Error
-from ..config import BACKEND_BASE_URL
+from ..config import Config
 
+BACKEND_BASE_URL = Config.BACKEND_BASE_URL
 
 # Dictionnary to Etudiant object
 def dict_to_etudiant(etud_dict):

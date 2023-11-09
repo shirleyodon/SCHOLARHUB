@@ -119,6 +119,37 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Place here the Minikube delpoyment action
+      - name: Start minikube
+        uses: medyagh/setup-minikube@latest
+
+      - name: Try the cluster
+        run: kubectl get pods -A
+
+      - name: Update backend image tag in manifest
+        if: contains(github.event.head_commit.message, 'backend')
         run: |
-          echo "Hop, deploy to Minikube !"
+          sed -i 's|tafitashirley/scholarhub-backend:[a-zA-Z0-9_.-]*|tafitashirley/scholarhub-backend:${{ env.GITHUB_SHA }}|g' manifets/06-flask-backend.yaml
+
+      - name: Update frontend image tag in manifest
+        if: contains(github.event.head_commit.message, 'frontend')
+        run: |
+          sed -i 's|tafitashirley/scholarhub-frontend:[a-zA-Z0-9_.-]*|tafitashirley/scholarhub-frontend:${{ env.GITHUB_SHA }}|g' manifets/07-flask-frontend.yaml
+
+      - name: Deploy to minikube
+        run: |
+          kubectl apply -f manifets/
+
+      - name: List all deployed services
+        run: |
+          minikube service list
+      
+      - name: List all used images with tags
+        run: |
+          echo "GITHUB_SHA=${{ env.GITHUB_SHA }}"
+          kubectl get pods -n default -o jsonpath="{..image}" |\
+          tr -s '[[:space:]]' '\n' |\
+          sort |\
+          uniq -c
+
+
+
