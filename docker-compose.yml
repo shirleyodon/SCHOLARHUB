@@ -14,19 +14,26 @@ services:
       - 5432:5432
 
   backend:
-    image: shirley/scholarhub:backend
+    image: tafitashirley/scholarhub-backend:v1
     container_name: backend
     ports:
       - "5000:5000"
-    command: sh -c "sleep 10s; gunicorn -b :5000 launch:app --reload"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=memoire
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_HOST=pgdatabase
+    command: sh -c "sleep 10s; gunicorn -w 5 -b :5000 launch:app --reload"
     depends_on:
       - database
 
   frontend:
-    image: shirley/scholarhub:frontend
+    image: tafitashirley/scholarhub-frontend:v1
     container_name: frontend
     ports:
       - "5001:5001"
-    command: sh -c "sleep 15s; gunicorn -b :5001 launch:app --reload"
+    environment:
+      - BACKEND_HOST=backend
+    command: sh -c "sleep 15s; gunicorn -w 5 -b :5001 launch:app --reload"
     depends_on:
       - backend

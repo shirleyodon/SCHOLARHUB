@@ -1,11 +1,11 @@
 from flask import Flask
-from . import config
+from .config import Config
 
 
 # Create flask app
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(config)
+    app.config.from_object(Config)
 
     from .views import login_route, register_route, home_route, result_route, print_route, logout_route
 

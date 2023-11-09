@@ -1,7 +1,8 @@
 import requests
-from ..config import BACKEND_BASE_URL
+from ..config import Config
 from ..models import Livre, LivrePlus
 
+BACKEND_BASE_URL = Config.BACKEND_BASE_URL
 
 # Dictionnary to Livre
 def dict_to_livre(livre_dict):
