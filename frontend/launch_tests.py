@@ -4,4 +4,4 @@ if __name__ == "__main__":
     pytest.main(["-x", "tests"])
 
 
-# I write this just, just to have something to commit on frontend xD
+# I write this just, to have something to commit on frontend xD
