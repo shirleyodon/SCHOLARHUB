@@ -59,6 +59,8 @@ jobs:
         if: contains(github.event.head_commit.message, 'backend')
         run: |
           sed -i 's|tafitashirley/scholarhub-backend:[a-zA-Z0-9_.-]*|tafitashirley/scholarhub-backend:${{ env.GITHUB_SHA }}|g' manifests/06-flask-backend.yaml
+          echo "Content after sed:"
+          cat manifests/06-flask-backend.yaml
 
       - name: Do nothing
         if: ${{ !contains(github.event.head_commit.message, 'backend') }}
@@ -115,7 +117,9 @@ jobs:
         if: contains(github.event.head_commit.message, 'frontend')
         run: |
           sed -i 's|tafitashirley/scholarhub-frontend:[a-zA-Z0-9_.-]*|tafitashirley/scholarhub-frontend:${{ env.GITHUB_SHA }}|g' manifests/07-flask-frontend.yaml
-
+          echo "Content after sed:"
+          cat manifests/07-flask-frontend.yaml
+          
       - name: Do nothing
         if: ${{ !contains(github.event.head_commit.message, 'frontend') }}
         run: echo "The change on the commit do not affect frontend files"
@@ -135,11 +139,6 @@ jobs:
       - name: Try the cluster
         run: kubectl get pods -A
 
-      - name: Check backend et frontend manifests
-        run: |
-          cat manifests/06-flask-backend.yaml
-          cat manifests/07-flask-frontend.yaml
-
       - name: Deploy to minikube
         run: |
           kubectl apply -f manifests/
@@ -150,7 +149,7 @@ jobs:
       
       - name: List all used images with tags
         run: |
-          echo "GITHUB_SHA=${{ env.GITHUB_SHA }}"
+          echo "GITHUB_SHA=${GITHUB_SHA}"
           kubectl get pods -n default -o jsonpath="{..image}" |\
           tr -s '[[:space:]]' '\n' |\
           sort |\
