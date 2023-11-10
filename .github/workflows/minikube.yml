@@ -186,3 +186,7 @@ jobs:
           tr -s '[[:space:]]' '\n' |\
           sort |\
           uniq -c
+
+      - name: Pause workflow in a few time
+        run: |
+          sleep 60
