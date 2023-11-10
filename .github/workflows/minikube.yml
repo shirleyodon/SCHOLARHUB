@@ -144,11 +144,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Start minikube
-        uses: medyagh/setup-minikube@latest
+      # - name: Start minikube
+      #   uses: medyagh/setup-minikube@latest
 
-      - name: Delete all existing resources
-        run: kubectl delete all --all
+      # - name: Delete all existing resources
+      #   run: kubectl delete all --all
 
       - name: Configure AWS credentials
         run: |
@@ -165,25 +165,31 @@ jobs:
 
       - name: Update backend image tag in manifest
         run: |
+          echo $LATEST_BACKEND_TAG
+          egrep -i 'image: tafitashirley' manifests/06-flask-backend.yaml
           sed -i -e "s|image: tafitashirley/scholarhub-backend:.*|image: tafitashirley/scholarhub-backend:$LATEST_BACKEND_TAG|g" manifests/06-flask-backend.yaml
+          egrep -i 'image: tafitashirley' manifests/06-flask-backend.yaml
 
       - name: Update frontend image tag in manifest
         run: |
+          echo $LATEST_FRONTEND_TAG
+          egrep -i 'image: tafitashirley' manifests/07-flask-frontend.yaml
           sed -i -e "s|image: tafitashirley/scholarhub-frontend:.*|image: tafitashirley/scholarhub-frontend:$LATEST_FRONTEND_TAG|g" manifests/07-flask-frontend.yaml
+          egrep -i 'image: tafitashirley' manifests/07-flask-frontend.yaml
       
-      - name: Deploy to minikube
-        run: |
-          kubectl apply -f manifests/
+      # - name: Deploy to minikube
+      #   run: |
+      #     kubectl apply -f manifests/
 
-      - name: List all deployed services
-        run: |
-          minikube service list
+      # - name: List all deployed services
+      #   run: |
+      #     minikube service list
       
-      - name: List all used images with tags
-        run: |
-          echo "SHA : $GITHUB_SHA"
-          echo "Images list"
-          kubectl get pods -n default -o jsonpath="{..image}" |\
-          tr -s '[[:space:]]' '\n' |\
-          sort |\
-          uniq -c
+      # - name: List all used images with tags
+      #   run: |
+      #     echo "SHA : $GITHUB_SHA"
+      #     echo "Images list"
+      #     kubectl get pods -n default -o jsonpath="{..image}" |\
+      #     tr -s '[[:space:]]' '\n' |\
+      #     sort |\
+      #     uniq -c
