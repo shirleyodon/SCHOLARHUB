@@ -156,22 +156,19 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region ${{ secrets.AWS_REGION }}
 
-      - name: Download latest image tags from S3
+      - name: Download and update backend image tag
         run: |
           aws s3 cp s3://scholarhub-s3/lastest-image-tag/backend-tag.txt backend-tag.txt
-          aws s3 cp s3://scholarhub-s3/lastest-image-tag/frontend-tag.txt frontend-tag.txt
           LATEST_BACKEND_TAG=$(cat backend-tag.txt)
-          LATEST_FRONTEND_TAG=$(cat frontend-tag.txt)
-
-      - name: Update backend image tag in manifest
-        run: |
           echo $LATEST_BACKEND_TAG
           egrep -i 'image: tafitashirley' manifests/06-flask-backend.yaml
           sed -i -e "s|image: tafitashirley/scholarhub-backend:.*|image: tafitashirley/scholarhub-backend:$LATEST_BACKEND_TAG|g" manifests/06-flask-backend.yaml
           egrep -i 'image: tafitashirley' manifests/06-flask-backend.yaml
 
-      - name: Update frontend image tag in manifest
+      - name: Download ans update frontend image tag
         run: |
+          aws s3 cp s3://scholarhub-s3/lastest-image-tag/frontend-tag.txt frontend-tag.txt
+          LATEST_FRONTEND_TAG=$(cat frontend-tag.txt)
           echo $LATEST_FRONTEND_TAG
           egrep -i 'image: tafitashirley' manifests/07-flask-frontend.yaml
           sed -i -e "s|image: tafitashirley/scholarhub-frontend:.*|image: tafitashirley/scholarhub-frontend:$LATEST_FRONTEND_TAG|g" manifests/07-flask-frontend.yaml
