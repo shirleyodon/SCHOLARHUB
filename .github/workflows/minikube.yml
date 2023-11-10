@@ -153,16 +153,12 @@ jobs:
       - name: Update backend image tag in manifest
         if: contains(github.event.head_commit.message, 'backend')
         run: |
-          sed -i 's|tafitashirley/scholarhub-backend:[a-zA-Z0-9_.-]*|tafitashirley/scholarhub-backend:${GITHUB_SHA}|g' manifests/06-flask-backend.yaml
-          echo "Content after sed:"
-          cat manifests/06-flask-backend.yaml
+          sed -i -e "s|image: tafitashirley/scholarhub-backend:.*|image: tafitashirley/scholarhub-backend:$GITHUB_SHA|g" manifests/06-flask-backend.yaml
 
       - name: Update frontend image tag in manifest
         if: contains(github.event.head_commit.message, 'frontend')
         run: |
-          sed -i 's|tafitashirley/scholarhub-frontend:[a-zA-Z0-9_.-]*|tafitashirley/scholarhub-frontend:${GITHUB_SHA}|g' manifests/07-flask-frontend.yaml
-          echo "Content after sed:"
-          cat manifests/07-flask-frontend.yaml
+          sed -i -e "s|image: tafitashirley/scholarhub-frontend:.*|image: tafitashirley/scholarhub-frontend:$GITHUB_SHA|g" manifests/07-flask-frontend.yaml
       
       - name: Deploy to minikube
         run: |
@@ -174,7 +170,8 @@ jobs:
       
       - name: List all used images with tags
         run: |
-          echo "GITHUB_SHA=${GITHUB_SHA}"
+          echo "SHA : $GITHUB_SHA"
+          echo "Images list"
           kubectl get pods -n default -o jsonpath="{..image}" |\
           tr -s '[[:space:]]' '\n' |\
           sort |\
