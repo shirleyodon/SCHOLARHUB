@@ -1,5 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+# This workflow set up a python environment to test, build&push docker image and deploy it on minikube
 
 name: Deployment to minikube
 
@@ -55,6 +54,19 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Configure AWS credentials
+        if: contains(github.event.head_commit.message, 'backend')
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region ${{ secrets.AWS_REGION }}
+
+      - name: Save the image TAG to S3
+        if: contains(github.event.head_commit.message, 'backend')
+        run: |
+          echo "$GITHUB_SHA" > backend-tag.txt
+          aws s3 cp backend-tag.txt s3://scholarhub-s3/lastest-image-tag/backend-tag.txt
+
       - name: Do nothing
         if: ${{ !contains(github.event.head_commit.message, 'backend') }}
         run: echo "The change on the commit do not affect backend files"
@@ -105,6 +117,19 @@ jobs:
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Configure AWS credentials
+        if: contains(github.event.head_commit.message, 'frontend')
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region ${{ secrets.AWS_REGION }}
+
+      - name: Save the image TAG to S3
+        if: contains(github.event.head_commit.message, 'frontend')
+        run: |
+          echo "$GITHUB_SHA" > frontend-tag.txt
+          aws s3 cp frontend-tag.txt s3://scholarhub-s3/lastest-image-tag/frontend-tag.txt
           
       - name: Do nothing
         if: ${{ !contains(github.event.head_commit.message, 'frontend') }}

@@ -1,3 +1,5 @@
+# This workflow send an E-mail to tafitagasy@gmail.com for each new pull request
+
 name: Email notification on a pull request
 
 on:
