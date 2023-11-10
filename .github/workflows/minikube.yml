@@ -160,8 +160,6 @@ jobs:
         run: |
           aws s3 cp s3://scholarhub-s3/lastest-image-tag/backend-tag.txt backend-tag.txt
           LATEST_BACKEND_TAG=$(cat backend-tag.txt)
-          echo $LATEST_BACKEND_TAG
-          egrep -i 'image: tafitashirley' manifests/06-flask-backend.yaml
           sed -i -e "s|image: tafitashirley/scholarhub-backend:.*|image: tafitashirley/scholarhub-backend:$LATEST_BACKEND_TAG|g" manifests/06-flask-backend.yaml
           egrep -i 'image: tafitashirley' manifests/06-flask-backend.yaml
 
@@ -169,8 +167,6 @@ jobs:
         run: |
           aws s3 cp s3://scholarhub-s3/lastest-image-tag/frontend-tag.txt frontend-tag.txt
           LATEST_FRONTEND_TAG=$(cat frontend-tag.txt)
-          echo $LATEST_FRONTEND_TAG
-          egrep -i 'image: tafitashirley' manifests/07-flask-frontend.yaml
           sed -i -e "s|image: tafitashirley/scholarhub-frontend:.*|image: tafitashirley/scholarhub-frontend:$LATEST_FRONTEND_TAG|g" manifests/07-flask-frontend.yaml
           egrep -i 'image: tafitashirley' manifests/07-flask-frontend.yaml
       
