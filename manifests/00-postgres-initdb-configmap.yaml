@@ -333,4 +333,3 @@ data:
 kind: ConfigMap
 metadata:
   name: postgres-initdb-configmap
-  namespace: default
