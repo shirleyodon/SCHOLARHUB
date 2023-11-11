@@ -332,8 +332,4 @@ data:
         ('2064', 5, 5), ('2045', 5, 5), ('2047', 5, 5), ('2069', 5, 5), ('2027', 5, 5), ('2024', 5, 5), ('2039', 5, 5), ('1987', 5, 5), ('831-HF', 5, 5), ('795-HF', 5, 5), ('846-HF', 5, 5), ('2056', 5, 5), ('2044', 5, 5);
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2023-11-08T23:27:25Z"
   name: postgres-initdb-configmap
-  namespace: default
-  resourceVersion: "36334"
-  uid: e8077ef9-5e85-460e-8f44-f0467463c800
