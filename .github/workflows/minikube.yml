@@ -1,6 +1,6 @@
 # This workflow set up a python environment to test, build&push docker image and deploy it on minikube
 
-name: Deployment to minikube
+name: Deployment to minikube on Github
 
 on:
   push:
@@ -13,7 +13,8 @@ jobs:
     environment: TEST
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
@@ -181,7 +182,7 @@ jobs:
       - name: List all used images with tags
         run: |
           echo "SHA : $GITHUB_SHA"
-          echo "Images list"
+          echo "----> Images list <----"
           kubectl get pods -n default -o jsonpath="{..image}" |\
           tr -s '[[:space:]]' '\n' |\
           sort |\
