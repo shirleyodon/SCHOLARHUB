@@ -1,0 +1,47 @@
+# This workflow deploy our images to minikube on EC2
+
+name: Deployment to minikube on EC2
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    name: Deployment to minikube on EC2
+    runs-on: ubuntu-latest
+    environment: PROD
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Remote EC2 server by ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd
+            echo "----> Change backend image tag to the latest <----"
+            aws s3 cp s3://scholarhub-s3/lastest-image-tag/backend-tag.txt backend-tag.txt
+            LATEST_BACKEND_TAG=$(cat backend-tag.txt)
+            sed -i -e "s|image: tafitashirley/scholarhub-backend:.*|image: tafitashirley/scholarhub-backend:$LATEST_BACKEND_TAG|g" manifests/06-flask-backend.yaml
+            egrep -i 'image: tafitashirley' manifests/06-flask-backend.yaml
+            echo "----> Change frontend image tag to the latest <----"
+            aws s3 cp s3://scholarhub-s3/lastest-image-tag/frontend-tag.txt frontend-tag.txt
+            LATEST_FRONTEND_TAG=$(cat frontend-tag.txt)
+            sed -i -e "s|image: tafitashirley/scholarhub-frontend:.*|image: tafitashirley/scholarhub-frontend:$LATEST_FRONTEND_TAG|g" manifests/07-flask-frontend.yaml
+            egrep -i 'image: tafitashirley' manifests/07-flask-frontend.yaml
+            echo "----> Apply potential changes <----"
+            kubectl apply -f manifests/
+            echo "----> Ckeck all <----"
+            echo "LATEST_BACKEND_TAG: $LATEST_BACKEND_TAG"
+            echo "LATEST_FRONTEND_TAG: $LATEST_FRONTEND_TAG"
+            kubectl get pods -n default -o jsonpath="{..image}" |\
+            tr -s '[[:space:]]' '\n' |\
+            sort |\
+            uniq -c
