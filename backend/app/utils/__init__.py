@@ -2,7 +2,7 @@ from .categorie import categorie_to_dict_1, categorie_to_dict_2, get_all_categor
 
 from .titre import titre_to_dict_1, titre_to_dict_2, get_all_titre, get_titre, create_titre, update_titre
 
-from .encadreur import encadreur_to_dict_1, encadreur_to_dict_2, get_all_encadreur, get_encadreur, create_encadreur, update_encadreur, search_encadreur_by_names
+from .encadreur import encadreur_to_dict_1, encadreur_to_dict_2, get_all_encadreur, get_encadreur, create_encadreur, update_encadreur, search_encadreur_by_names, search_encadreur_by_email
 
 from .parcours import parcours_to_dict_1, parcours_to_dict_2, get_all_parcours, get_parcours, create_parcours, update_parcours, search_parcours_by_libelle
 

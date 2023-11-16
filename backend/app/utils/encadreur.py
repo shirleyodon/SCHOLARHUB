@@ -40,6 +40,11 @@ def get_encadreur(matEncad):
     # return EncadreurPedagogique.query.get(matEncad)
 
 
+# Search an EncadreurPedagogique by E-mail
+def search_encadreur_by_email(email):
+    return EncadreurPedagogique.query.filter_by(emailEncad=email).first()
+
+
 # Create EncadreurPedagogique with Json data
 def create_encadreur(json_data):
     return EncadreurPedagogique(

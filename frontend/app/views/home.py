@@ -10,7 +10,7 @@ home_route = Blueprint('home_route', __name__)
 @home_route.route("/sh/home/", methods=["POST", "GET"])
 def home():
     from ..models import Information, Error, Pagination
-    from ..utils import dict_to_etudiant
+    from ..utils import dict_to_etudiant, dict_to_encadreur
 
     # Getting user in session
     user_json = session.get('user')
@@ -19,7 +19,15 @@ def home():
 
     if user_json:
         user_dict = json.loads(user_json)
-        user = dict_to_etudiant(user_dict)
+        
+        # What kind of user is logged in
+        if "MatEtud" in user_dict:
+            user = dict_to_etudiant(user_dict)
+            
+        elif 'MatEncad' in user_dict:
+            user = dict_to_encadreur(user_dict)
+        else:
+            pass
 
         if request.method == "POST":
             # Get all form inputs

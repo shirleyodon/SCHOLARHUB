@@ -151,7 +151,8 @@ VALUES
     ('ENC013', NULL, NULL, 'RATIANANTITRA', 'Volatiana Marielle', 4),
     ('ENC014', NULL, NULL, 'RATIARSON', 'Venot', 4),
     ('ENC015', NULL, NULL, 'DIMBISOA', 'William Germain', 3),
-    ('ENC016', NULL, NULL, 'RAZAFIMAHATRATRA', 'Hajarisena', 3);
+    ('ENC016', NULL, NULL, 'RAZAFIMAHATRATRA', 'Hajarisena', 3),
+    ('ENC017', NULL, NULL, 'KENT', 'Clark', 1);
 
 -- Entries for parcoursEtude table
 INSERT INTO "parcoursEtude" ("LibelleParc")

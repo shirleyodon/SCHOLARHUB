@@ -52,7 +52,7 @@ def search_etudiant_by_email(email):
 
 # Search Etudiant by matricule
 def search_etudiant_by_matricule(matricule):
-    url = f"{BACKEND_BASE_URL}search/etudiant/bymatricule/{matricule}"
+    url = f"{BACKEND_BASE_URL}etudiant/{matricule}"
     try:
         response = requests.get(url)
         # Si le backend repond favorablement
@@ -72,7 +72,7 @@ def search_etudiant_by_matricule(matricule):
 
 # Enrol Etudiant
 def enrol_etudiant(etud_dict):
-    url = f"{BACKEND_BASE_URL}{etud_dict['MatEtud']}"
+    url = f"{BACKEND_BASE_URL}etudiant/{etud_dict['MatEtud']}"
 
     try:
         response = requests.put(url, json=etud_dict)

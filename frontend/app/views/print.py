@@ -9,7 +9,7 @@ print_route = Blueprint('print_route', __name__)
 @print_route.route("/sh/print/", methods=["GET", "POST"])
 def print_book():
     from ..models import LivrePlus
-    from ..utils import dict_to_etudiant, get_livre
+    from ..utils import dict_to_etudiant, get_livre, dict_to_encadreur
 
     # Getting user in session
     user_json = session.get('user')
@@ -21,7 +21,17 @@ def print_book():
     # The user has logged in
     if user_json:
         user_dict = json.loads(user_json)
-        user = dict_to_etudiant(user_dict)
+        
+        
+        # What kind of user is logged in
+        if "MatEtud" in user_dict:
+            user = dict_to_etudiant(user_dict)
+            
+        elif 'MatEncad' in user_dict:
+            user = dict_to_encadreur(user_dict)
+        else:
+            pass
+        
 
         if request.method == "POST":
             # Get all form inputs

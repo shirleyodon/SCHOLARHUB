@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from sqlalchemy.exc import SQLAlchemyError
 from .. import db
 from ..utils import encadreur_to_dict_1, get_all_encadreur, get_encadreur, create_encadreur, \
-    update_encadreur
+    update_encadreur, search_encadreur_by_email
 
 route_encadreur = Blueprint('route_encadreur', __name__)
 
@@ -64,5 +64,24 @@ def get_or_update_or_delete_encadreurs(matEncad):
     except SQLAlchemyError as e:
         db.session.rollback()
         msg = str(e.__dict__['orig'])
+        print(msg)
+        return jsonify({'Erreur': msg}), 500
+
+
+# Search an EncadreurPedagogique by E-mail
+@route_encadreur.route('/sh/search/encadreurpedagogique/byemail/<email>/')
+def search_by_email(email):
+    try:
+        encadreur = search_encadreur_by_email(email)
+
+        # Si l'encadreur n'existe pas
+        if not encadreur:
+            return jsonify({'Erreur': "Aucun compte rataché à cet E-mail n'a été trouvé"}), 404
+        else:
+            return jsonify(encadreur_to_dict_1(encadreur)), 200
+
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        msg = str(e.__dict__['orig']) if 'origin' in e.__dict__ else e
         print(msg)
         return jsonify({'Erreur': msg}), 500
