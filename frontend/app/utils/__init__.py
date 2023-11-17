@@ -2,7 +2,7 @@ from .annee import dict_to_annee
 
 from .categorie import dict_to_categorie
 
-from .encadreur import dict_to_encadreur
+from .encadreur import dict_to_encadreur, search_encadreur_by_email, search_encadreur_by_matricule, is_valid_encadreur_email, enrol_encadreur
 
 from .etablissement import dict_to_etablissement
 

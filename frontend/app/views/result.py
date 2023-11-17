@@ -9,7 +9,7 @@ result_route = Blueprint('result_route', __name__)
 @result_route.route('/sh/search/livre/', methods=["GET", "POST"])
 def result():
     from ..models import Information, Error, Pagination
-    from ..utils import dict_to_etudiant
+    from ..utils import dict_to_etudiant, dict_to_encadreur
 
     # Getting user in session
     user_json = session.get('user')
@@ -19,7 +19,17 @@ def result():
     # The user has logged in
     if user_json:
         user_dict = json.loads(user_json)
-        user = dict_to_etudiant(user_dict)
+        
+        
+        # What kind of user is logged in
+        if "MatEtud" in user_dict:
+            user = dict_to_etudiant(user_dict)
+            
+        elif 'MatEncad' in user_dict:
+            user = dict_to_encadreur(user_dict)
+        else:
+            pass
+        
 
         if request.method == "POST":
             # Get all form inputs
