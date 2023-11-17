@@ -39,24 +39,24 @@ def login():
             return render_template("login.html", alert=alert, previous_email=email)
 
         # Log as Encadreur
-        elif user_type == "teacher-option":
-            user = search_encadreur_by_email(email)
+        # elif user_type == "teacher-option":
+        #     user = search_encadreur_by_email(email)
 
-            if isinstance(user, EncadreurPedagogique):
-                password = request.form["password"]
+        #     if isinstance(user, EncadreurPedagogique):
+        #         password = request.form["password"]
 
-                if user.motPasseEtud == password:
-                    session['user'] = json.dumps(user.to_dict())
-                    home_url = url_for('home_route.home')
-                    return redirect(home_url)
-                else:
-                    alert = Error("Mot de passe incorrect")
+        #         if user.motPasseEtud == password:
+        #             session['user'] = json.dumps(user.to_dict())
+        #             home_url = url_for('home_route.home')
+        #             return redirect(home_url)
+        #         else:
+        #             alert = Error("Mot de passe incorrect")
 
-            else:
-                # user is an Error object
-                alert = user
+        #     else:
+        #         # user is an Error object
+        #         alert = user
 
-            return render_template("login.html", alert=alert, previous_email=email)
+        #     return render_template("login.html", alert=alert, previous_email=email)
             
             
         # Log as Admin
